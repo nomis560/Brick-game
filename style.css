@@ -1,6 +1,6 @@
 html{
     background-color: rgb(29, 28, 32);
-    color: wheat;
+    color: white;
     font-family: "Rubik", sans-serif;
   font-optical-sizing: auto;
   font-weight: bold;
@@ -176,4 +176,108 @@ html{
     100% {
       transform: translateX(0); /* Glide to its normal position */
     }
+  }
+
+
+
+  @media (max-width: 600px){
+    .gameArea{
+
+        border-radius: 15px;
+        height: 490px;
+        width: 350px;
+        padding: 20px;
+        margin: 0px;
+        margin-top: 10px;
+        margin-bottom: 40px;
+        gap: 3px;
+    }
+    .held{
+        border-radius: 15px;
+        width: 350px;
+        margin-top: 10px;
+        gap: 3px;
+    }
+    .held div{
+        height: 70px;
+        border-radius: 10px;
+        font-size: 0;
+    }
+
+    @keyframes aniCLeft {
+        0% {
+          transform: translate(0px, 0px); /* Start with an offset */
+        }
+        100% {
+          transform: translate(-70px, 0px); /* Glide to its normal position */
+        }
+      }
+      @keyframes aniBoom {
+        0% {
+          transform: scale(120%)
+        }
+        100% {
+          transform: scale(100%)
+        }
+      }
+      @keyframes aniNew {
+        0% {
+            opacity: 0%;
+          transform: translateY(-70px)
+        }
+        100% {
+            opacity: 100%;
+    
+          transform: translateY(0px)
+        }
+      }
+      @keyframes aniCDown {
+        0% {
+          transform: translate(0px, 0px); /* Start with an offset */
+        }
+        100% {
+          transform: translate(0px, 70px); /* Glide to its normal position */
+        }
+      }
+      @keyframes aniCUp {
+        0% {
+          transform: translate(0px, 0px); /* Start with an offset */
+        }
+        100% {
+          transform: translate(0px, -70px); /* Glide to its normal position */
+        }
+      }
+      @keyframes aniCRight {
+        0% {
+          transform: translate(0px, 0px); /* Start with an offset */
+        }
+        100% {
+          transform: translate(70px, 0px); /* Glide to its normal position */
+        }
+      }
+    @keyframes aniDrop {
+        0% {
+          transform: translate(0px, -70px); /* Start with an offset */
+        }
+        100% {
+          transform: translate(0, 0); /* Glide to its normal position */
+        }
+      }
+    @keyframes glideLeft {
+        0% {
+          transform: translateX(70px); /* Start with an offset */
+        }
+        100% {
+          transform: translateX(0); /* Glide to its normal position */
+        }
+      }
+      @keyframes glideRight {
+        0% {
+          transform: translateX(-70px); /* Start with an offset */
+        }
+        100% {
+          transform: translateX(0); /* Glide to its normal position */
+        }
+      }
+
   }

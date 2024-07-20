@@ -6,7 +6,19 @@ var toFall = [];
 generateNumber();
 var ready = true;
 var score = 0;
-
+var colorList = [
+    [[40, 70, 75],[147, 22, 33]],
+    [[21, 21, 21],[166, 61, 64]],
+    [[54, 33, 62],[72, 169, 166]],
+    [[82, 65, 76],[108, 154, 139]],
+    [[27, 6, 94],[255, 71, 218]],
+    [[234, 99, 140],[255, 217, 218]],
+    [[132, 0, 50],[0, 38, 66]],
+    [[86, 54, 53],[82, 170, 94]],
+    [[222, 13, 146],[39, 40, 56]],
+    [[239, 118, 122],[35, 240, 199]]
+];
+var rand = Math.floor(Math.random()*colorList.length);
 updateNext()
 
 $("html").on( "keyup", function(event) {
@@ -51,7 +63,12 @@ function nextPosition(which){
     }
 }
 $(document).mousemove(async function(event){
-    position = (Math.floor((event.pageX - $(".gameArea").offset().left)/105))
+    var blockwidth = 105;
+    if ($(window).width() < 600) {
+        blockwidth = 75;
+     }
+
+    position = (Math.floor((event.pageX - $(".gameArea").offset().left)/blockwidth))
     if (position<0)position= 0;
     if(position>4)position=4;
     updateNext();
@@ -119,6 +136,7 @@ function drop(){
 }
 
 function newNext(){
+    console.log("  #  ")
     ready= true;
     updateNext()
     for(var i = 0; i<5;i++){
@@ -142,14 +160,14 @@ function comPhase() {
         const pose = toCom.pop(); 
         if(toCom.includes(pose))continue;
         if(document.querySelectorAll(".gameArea div")[pose].innerHTML=== "")continue;
-        var val = recCom(pose, [])-1;
+        const val = recCom(pose, [])-1;
         if(val ==="fail")continue;
         console.log("--"+ pose +" - "+ document.querySelectorAll(".gameArea div")[pose].innerHTML)
         //console.log("val: "+ val);
         setTimeout(function () {
             for(var i = 0; i<val;i++){
                 document.querySelectorAll(".gameArea div")[pose].innerHTML++
-                console.log("--"+ pose +" - "+ document.querySelectorAll(".gameArea div")[pose].innerHTML)
+                console.log("~~"+ pose +" - "+ document.querySelectorAll(".gameArea div")[pose].innerHTML)
                 updateBlock(pose)
                 if(val>0){        
                     scoreCalcAdd(document.querySelectorAll(".gameArea div")[pose].innerHTML)
@@ -166,6 +184,8 @@ function comPhase() {
 
     fallPhase();}, 320)
 }
+
+
 
 function fallPhase(){
     while(toFall.length>0) {
@@ -303,18 +323,22 @@ function updateBlock(pos){
     return;
 }
 function makeColor(value){
-    var x = 1;
+    var w2 = 1;
     for(var i = 1; i<value; i++){
-        x*=0.7;
+        w2*=0.82;
     }
-    var r1 = 26;
-    var g1 = 14;
-    var b1 = 44; 
-    var r2 = 250;
-    var g2 = 174;
-    var b2 = 123; 
+    var w1 = 1- w2;
 
-    return "rgb(" + Math.floor(r1+(r2-r1)*x )+ "," + Math.floor(g1+(g2-g1)*x )+ "," + Math.floor(b1+(b2-b1)*x)+")";
+    var color1 = colorList[rand][0]
+    var color2 = colorList[rand][1]
+    
+
+    var rgb = [Math.round(color1[0] * w1 + color2[0] * w2),
+        Math.round(color1[1] * w1 + color2[1] * w2),
+        Math.round(color1[2] * w1 + color2[2] * w2)];
+
+    return 'rgb('+rgb.join()+')'
+    //return "rgb(" + Math.floor(r1+(r2-r1)*x )+ "," + Math.floor(g1+(g2-g1)*x )+ "," + Math.floor(b1+(b2-b1)*x)+")";
 }
 function updateNext(){
     $(".held div").removeClass("next right left");
