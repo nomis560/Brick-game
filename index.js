@@ -2,6 +2,7 @@ var position = 2;
 var nextNumber;
 var toCom = [];
 var nexToCom =[];
+var nexToComFall =[];
 var toFall = [];
 generateNumber();
 var ready = true;
@@ -188,11 +189,14 @@ function comPhase() {
 
 
 function fallPhase(){
+    toFall.sort(function(a, b){return b - a});
+
     while(toFall.length>0) {
         fall(toFall.pop())
     };
-    toCom = nexToCom.reverse();
+    toCom = toCom.concat(nexToCom.reverse(),nexToComFall.reverse());
     nexToCom = [];
+    nexToComFall = [];
     if(toCom.length===0){
         newNext();
         return;}
@@ -208,7 +212,7 @@ function fall(pos){
             $(".gameArea div").removeClass("drop");
     
         }, 200);
-        nexToCom.push(i);
+        nexToComFall.push(i);
 
     }
     document.querySelectorAll(".gameArea div")[i].innerHTML="";
@@ -297,7 +301,7 @@ function combineElectricBoogaloo(pos, pos2, cDirection){
         }, 155);
         return;
     }
-    nexToCom.push(pos)
+    nexToCom.push(pos);
     setTimeout(function () {
         document.querySelectorAll(".gameArea div")[pos].innerHTML++;
         document.querySelectorAll(".gameArea div")[pos2].classList.add(cDirection);
