@@ -191,7 +191,7 @@ function fallPhase(){
     while(toFall.length>0) {
         fall(toFall.pop())
     };
-    toCom = nexToCom;
+    toCom = nexToCom.reverse();
     nexToCom = [];
     if(toCom.length===0){
         newNext();
